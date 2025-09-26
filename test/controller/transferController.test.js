@@ -11,7 +11,7 @@ const transferService = require('../../service/transferService')
 //testes
 describe('Transfer Controller', () => {
     describe('POST /transfers', () => {
-        it('Quando recebo remetente e destinatário inexistentes recebo 404 e a mensagem de erro', async () => {
+        it('Quando recebo remetente e destinatário inexistentes recebo 400 e a mensagem de erro', async () => {
             const resposta = await request(app)
                 .post('/transfers')
                 .send({
@@ -19,14 +19,14 @@ describe('Transfer Controller', () => {
                       destinatario: "priscila",
                       valor: 200
                     });
-        expect(resposta.status).to.equal(404);
-        expect(resposta.body).to.have.property('message', 'Usuário remetente ou destinatário não encontrado.')
+        expect(resposta.status).to.equal(400);
+        expect(resposta.body).to.have.property('error', 'Destinatário não encontrado.')
         });
 
-        it('Usando Mocks: Quando recebo remetente e destinatário inexistentes recebo 404 e a mensagem de erro', async () => {
+        it('Usando Mocks: Quando recebo remetente e destinatário inexistentes recebo 400 e a mensagem de erro', async () => {
             //mocar apenas a função transfers do Service
             const transferServiceMock = sinon.stub(transferService, 'transfer');
-            transferServiceMock.throws({ message: 'xxxxx' });
+            transferServiceMock.throws({ message: 'Destinatário não encontrado.' });
 
             const resposta = await request(app)
                 .post('/transfers')
@@ -35,30 +35,30 @@ describe('Transfer Controller', () => {
                       destinatario: "priscila",
                       valor: 200
                     });
-        expect(resposta.status).to.equal(404);
-        expect(resposta.body).to.have.property('message', 'Usuário remetente ou destinatário não encontrado.')
+        expect(resposta.status).to.equal(400);
+        expect(resposta.body).to.have.property('error', 'Destinatário não encontrado.')
         sinon.restore();
         });
 
-        it('Usando Mocks: Remetente, destinatário e valor são obrigatórios. - 400', async () => {
+        it('Usando Mocks: Transferência realizada com sucesso. - 200', async () => {
             //mocar apenas a função transfers do Service
             const transferServiceMock = sinon.stub(transferService, 'transfer');
             transferServiceMock.returns({ 
                 remetente: "julio",
-                destinatario: 123,
-                valor: "a"
+                destinatario: "bea",
+                valor: 222
             });
 
             const resposta = await request(app)
                 .post('/transfers')
                 .send({
                     remetente: "julio",
-                    destinatario: 123,
-                    valor: "a"
+                    destinatario: "bea",
+                    valor: 222
                 });
 
-            expect(resposta.status).to.equal(400);
-            expect(resposta.body).to.have.property('message', 'Remetente, destinatário e valor são obrigatórios.');
+            expect(resposta.status).to.equal(200);
+            expect(resposta.body).to.have.property('message', 'Transferência realizada com sucesso.');
 
             sinon.restore();
             console.log(resposta.body)
