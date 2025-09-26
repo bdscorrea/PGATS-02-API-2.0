@@ -4,9 +4,9 @@ const sinon = require('sinon');
 const { expect } = require('chai');
 
 //aplicação
-const app = require('../../app');
+const app = require('../../src/app');
 //MOCK - importar o transfer service
-const transferService = require('../../service/transferService')
+const transferService = require('../../src/service/transferService');
 
 //testes
 describe('Transfer Controller', () => {
@@ -15,9 +15,8 @@ describe('Transfer Controller', () => {
             const resposta = await request(app)
                 .post('/transfers')
                 .send({
-                      remetente: "julio",
-                      destinatario: "priscila",
-                      valor: 200
+                    to: "priscila",
+                    amount: 200
                     });
         expect(resposta.status).to.equal(400);
         expect(resposta.body).to.have.property('error', 'Destinatário não encontrado.')
@@ -26,35 +25,33 @@ describe('Transfer Controller', () => {
         it('Usando Mocks: Quando recebo remetente e destinatário inexistentes recebo 400 e a mensagem de erro', async () => {
             //mocar apenas a função transfers do Service
             const transferServiceMock = sinon.stub(transferService, 'transfer');
-            transferServiceMock.throws({ message: 'Destinatário não encontrado.' });
+            transferServiceMock.throws({ error: 'Destinatário não encontrado.' });
 
             const resposta = await request(app)
                 .post('/transfers')
                 .send({
-                      remetente: "teste",
-                      destinatario: "priscila",
-                      valor: 200
+                      to: "priscila",
+                      amount: 200
                     });
         expect(resposta.status).to.equal(400);
         expect(resposta.body).to.have.property('error', 'Destinatário não encontrado.')
-        sinon.restore();
+        
+  sinon.restore();
         });
 
         it('Usando Mocks: Transferência realizada com sucesso. - 200', async () => {
             //mocar apenas a função transfers do Service
             const transferServiceMock = sinon.stub(transferService, 'transfer');
             transferServiceMock.returns({ 
-                remetente: "julio",
-                destinatario: "bea",
-                valor: 222
+                to: "bea",
+                amount: 222
             });
 
             const resposta = await request(app)
                 .post('/transfers')
                 .send({
-                    remetente: "julio",
-                    destinatario: "bea",
-                    valor: 222
+                    to: "bea",
+                    amount: 222
                 });
 
             expect(resposta.status).to.equal(200);
