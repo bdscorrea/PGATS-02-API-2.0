@@ -10,13 +10,13 @@ function registerUser(username, password) {
   return { message: 'Usuário registrado com sucesso' };
 }
 
-function authenticateUser(username, password) {
+/*function authenticateUser(username, password) {
   const user = users.find(u => u.username === username);
   if (!user || !bcrypt.compareSync(password, user.password)) {
     return { error: 'Credenciais inválidas' };
   }
   return user;
-}
+}*/
 
 function getUsers() {
   return users.map(u => ({ username: u.username, balance: u.balance, favorecidos: u.favorecidos }));

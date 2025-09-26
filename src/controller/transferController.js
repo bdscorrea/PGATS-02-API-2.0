@@ -1,4 +1,4 @@
-const transferService = require('../service/transferService');
+const transferService = require('../../src/service/transferService');
 
 function transfer(req, res) {
   const { to, amount } = req.body;
