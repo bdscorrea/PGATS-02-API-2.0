@@ -1,4 +1,4 @@
-/*const transferService = require('../../src/service/transferService');
+const transferService = require('../../src/service/transferService');
 
 function transfer(req, res) {
   const { to, amount } = req.body;
@@ -11,8 +11,8 @@ function transfer(req, res) {
 function getTransfers(req, res) {
   const username = req.user.username;
   res.json(transferService.getTransfers(username));
-}*/
-
+}
+/*
 const transferService = require('../../src/service/transferService');
 
 async function transfer(req, res) {
@@ -44,6 +44,6 @@ async function transfer(req, res) {
   function getTransfers(req, res) {
   const username = req.user.username;
   res.json(transferService.getTransfers(username));
-} 
+} */
 
-module.exports = { transfer, getTransfers };
+module.exports = { transfer,  getTransfers };

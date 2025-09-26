@@ -1,6 +1,6 @@
 const userService = require('../../src/service/transferService');
-//const jwt = require('jsonwebtoken');
-//const SECRET = 'supersecret';
+const jwt = require('jsonwebtoken');
+const SECRET = 'supersecret';
 
 function register(req, res) {
   const { username, password } = req.body;
@@ -17,10 +17,10 @@ function login(req, res) {
   if (!username || !password) {
     return res.status(400).json({ error: 'Usuário e senha são obrigatórios' });
   }
- /* const user = userService.authenticateUser(username, password);
+  const user = userService.authenticateUser(username, password);
   if (user.error) return res.status(401).json(user);
   const token = jwt.sign({ username: user.username }, SECRET, { expiresIn: '1h' });
-  res.json({ token });*/
+  res.json({ token });
 }
 
 function getUsers(req, res) {
