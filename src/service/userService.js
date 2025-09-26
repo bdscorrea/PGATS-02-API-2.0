@@ -31,4 +31,4 @@ function addFavorecido(username, favorecido) {
   return { message: 'Favorecido adicionado' };
 }
 
-module.exports = { registerUser, authenticateUser, getUsers, addFavorecido };
+module.exports = { registerUser, getUsers, addFavorecido };

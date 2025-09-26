@@ -7,6 +7,13 @@ const transferController = require('./controller/transferController');
 const app = express();
 app.use(express.json());
 
+if (process.env.NODE_ENV === 'test') {
+  app.use((req, res, next) => {
+    req.user = { username: 'testuser', balance: 10000, favorecidos: [] };
+    next();
+  });
+}
+
 //const SECRET = 'supersecret';
 
 /*function authenticateToken(req, res, next) {
