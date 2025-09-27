@@ -17,7 +17,7 @@ function getTransfers(req, res) {
   const username = req.user.username;
   res.json(transferService.getTransfers(username));
   } 
-  
+
 function transfer(req, res) {
   try {
     const { to, amount } = req.body;
@@ -32,8 +32,9 @@ function transfer(req, res) {
     return res.status(200).json(result);
   } catch (err) {
     console.error(err);
-    return res.status(500).json({ error: "Erro interno no servidor" });
+    return res.status(400).json({ error: "Erro inesperado: serviço não retornou nada" });
   }
+  
 }
 
 module.exports = { transfer,  getTransfers };

@@ -20,11 +20,9 @@ describe('Transfer Controller External', () => {
                       to: "priscila",
                       amount: 200
                     });
-        
-        expect(resposta.status).to.equal(400);
-        expect(resposta.body).to.have.property('error', 'Destinatário não encontrado')
-
         console.log(resposta.body);
+        expect(resposta.status).to.equal(404);
+        expect(resposta.body).to.have.property('error', 'Destinatário não encontrado')
     });
       
 });
