@@ -33,4 +33,8 @@ app.get('/transfers', authenticateToken, transferController.getTransfers);
 //app.post('/transfer', transferController.transfer);
 //app.get('/transfers', transferController.getTransfers);
 
+
+const authMiddleware = require('../middleware/Middlewarejwt');
+app.use('/transfer', authMiddleware, transferController.transfer);
+
 module.exports = app;
