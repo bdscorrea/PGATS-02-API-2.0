@@ -99,10 +99,11 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                 "username" : { "type": "string" },
                   "to": { "type": "string" },
                   "amount": { "type": "number" }
                 },
-                "required": ["to", "amount"]
+                "required": ["username","to", "amount"]
               }
             }
           }

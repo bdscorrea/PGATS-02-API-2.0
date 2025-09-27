@@ -7,13 +7,13 @@ const jwt = require('jsonwebtoken');
 const SECRET = 'supersecret';
 const payload = { username: 'bea', password: '12345' };
 const token = jwt.sign(payload, SECRET, { expiresIn: '1h' });
-console.log(token);
+//console.log(token);
 
 //testes
 describe('Transfer Controller External', () => {
     describe('POST /transfer', () => {
         it('Quando recebo remetente e destinatário inexistentes recebo 400 e a mensagem de erro', async () => {
-            const resposta = await request('http://localhost:3000')
+            const resposta = await request('http://localhost:3000/')
                 .post('/transfer')
                 .set('Authorization', `Bearer ${token}`) // envia o token no header
                 .send({
