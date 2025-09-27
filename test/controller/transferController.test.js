@@ -47,7 +47,7 @@ describe('Transfer Controller', () => {
         
   sinon.restore();
   
-  console.log(resposta.body);
+  //console.log(resposta.body);
         });
 
       /*  it('Usando Mocks: Transferência realizada com sucesso. - 200', async () => {Remetente, destinatário e valor são obri
